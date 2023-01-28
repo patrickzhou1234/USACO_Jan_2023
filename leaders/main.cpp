@@ -24,6 +24,7 @@ int main() {
         if (cows[i].breed=='H') {
             if (firstH==-1) {
                 firstH=i;
+                lastH=i;
             } else {
                 lastH=i;
             }
@@ -31,19 +32,20 @@ int main() {
         if (cows[i].breed=='G') {
             if (firstG==-1) {
                 firstG=i;
+                lastG=i;
             } else {
                 lastG=i;
             }
         }
     }
     bool perfectpair=false;
-    if (firstH+cows[firstH].ls>lastH && firstG+cows[firstG].ls>lastG) {
+    if (cows[firstH].ls>lastH && cows[firstG].ls>lastG) {
         ct++;
         perfectpair=true;
     }
-    if (firstG+cows[firstG].ls>lastG) {
+    if (cows[firstG].ls>lastG) {
         for (i=firstG-1;i>=0;i--) {
-            if (cows[i].breed=='H' && i+cows[i].ls>firstG) {
+            if (cows[i].breed=='H' && cows[i].ls>firstG) {
                 if (perfectpair && i==firstH) {
                     continue;
                 }
@@ -51,9 +53,9 @@ int main() {
             }
         }
     }
-    if (firstH+cows[firstH].ls>lastH) {
+    if (cows[firstH].ls>lastH) {
         for (i=firstH-1;i>=0;i--) {
-            if (cows[i].breed=='G' && i+cows[i].ls>firstH) {
+            if (cows[i].breed=='G' && cows[i].ls>firstH) {
                 if (perfectpair && i==firstG) {
                     continue;
                 }
