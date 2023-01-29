@@ -6,50 +6,39 @@ using namespace std;
 #define MAX_INT 2147483647
 
 int main() {
-    int n, i, j, frcor=0, bckcor=0;
+    int n, i, j, mxcor=0, cor=0;
+    bool mf=false;
     cin >> n;
     string strs[n];
     for (i=0;i<n;i++) {
         cin >> strs[i];
     }
     for (i=0;i<n;i++) {
-        frcor=0, bckcor=0;
+        mxcor=0, mf=false;
         if (strs[i].length()>=3) {
-            if (strs[i].at(0)=='M') {
-                frcor++;
-            }
-            if (strs[i].at(1)=='O') {
-                frcor++;
-            } else {
-                cout << -1 << "\n";
-                continue;
-            }
-            if (strs[i].at(2)=='O') {
-                frcor++;
+            for (j=0;j<=strs[i].length()-3;j++) {
+                cor=0;
+                if (strs[i].at(j)=='M') {
+                    cor++;
+                }
+                if (strs[i].at(j+1)=='O') {
+                    cor++;
+                    mf=true;
+                }
+                if (strs[i].at(j+2)=='O') {
+                    cor++;
+                }
+                mxcor = max(mxcor, cor);
             }
         } else {
             cout << -1 << "\n";
             continue;
         }
-        if (strs[i].length()>=6) {
-            if (strs[i].at(strs[i].length()-3)=='M') {
-                bckcor++;
-            }
-            if (strs[i].at(strs[i].length()-2)=='O') {
-                bckcor++;
-            } else {
-                cout << -1 << "\n";
-                continue;
-            }
-            if (strs[i].at(strs[i].length()-1)=='O') {
-                bckcor++;
-            }
+        if (!mf) {
+            cout << -1 << "\n";
+            continue;
         }
-        if (frcor>bckcor) {
-            cout << strs[i].length()-frcor;
-        } else {
-            cout << strs[i].length()-bckcor;
-        }
+        cout << strs[i].length()-mxcor;
         cout << "\n";
     }
     system("pause");
